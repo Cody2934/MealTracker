@@ -19,35 +19,6 @@ describe('app routes', () => {
     return mongoose.connection.close();
   });
 
-  //post (starter code)
-  it('creates a recipe', () => {
-    return request(app)
-      .post('/api/v1/recipes')
-      .send({
-        name: 'cookies',
-        directions: [
-          'preheat oven to 375',
-          'mix ingredients',
-          'put dough on cookie sheet',
-          'bake for 10 minutes'
-        ]
-      })
-      .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.any(String),
-          name: 'cookies',
-          directions: [
-            'preheat oven to 375',
-            'mix ingredients',
-            'put dough on cookie sheet',
-            'bake for 10 minutes'
-          ],
-          __v: 0
-        });
-      });
-  });
-
-  //get all (starter code)
   it('gets all recipes', async() => {
     const recipes = await Recipe.create([
       { name: 'cookies', directions: [] },
@@ -63,92 +34,6 @@ describe('app routes', () => {
             _id: recipe._id.toString(),
             name: recipe.name
           });
-        });
-      });
-  });
-
-  //get by id 
-  it('gets a recipe by id', async() => {
-    const recipe = await Recipe.create({
-      name: 'cookies',
-      directions: [
-        'preheat oven to 375',
-        'mix ingredients',
-        'put dough on cookie sheet',
-        'bake for 10 minutes'
-      ],
-    });
-    return request(app)
-      .get(`/api/v1/recipes/${recipe._id}`)
-      .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.any(String),
-          name: 'cookies',
-          directions: [
-            'preheat oven to 375',
-            'mix ingredients',
-            'put dough on cookie sheet',
-            'bake for 10 minutes'
-          ],
-          __v: 0
-        });
-      });
-  });
-
-  //patch (starter code)
-  it('updates a recipe by id', async() => {
-    const recipe = await Recipe.create({
-      name: 'cookies',
-      directions: [
-        'preheat oven to 375',
-        'mix ingredients',
-        'put dough on cookie sheet',
-        'bake for 10 minutes'
-      ],
-    });
-
-    return request(app)
-      .patch(`/api/v1/recipes/${recipe._id}`)
-      .send({ name: 'good cookies' })
-      .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.any(String),
-          name: 'good cookies',
-          directions: [
-            'preheat oven to 375',
-            'mix ingredients',
-            'put dough on cookie sheet',
-            'bake for 10 minutes'
-          ],
-          __v: 0
-        });
-      });
-  });
-
-  //delete needs work...
-  it('deletes a recipe by id', async() => {
-    const recipe = await Recipe.create({
-      name: 'cookies',
-      directions: [
-        'preheat oven to 375',
-        'mix ingredients',
-        'put dough on cookie sheet',
-        'bake for 10 minutes'
-      ],
-    });
-    return request(app)
-      .delete(`/api/v1/recipes/${recipe._id}`)
-      .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.any(String),
-          name: 'cookies',
-          directions: [
-            'preheat oven to 375',
-            'mix ingredients',
-            'put dough on cookie sheet',
-            'bake for 10 minutes'
-          ],
-          __v: 0
         });
       });
   });
